@@ -43,7 +43,7 @@ const CartScreen = () => {
             uri: `${product.imageUrl}`
           }}
         />
-        <Text>{product.name}</Text>
+        <Text style={gStyle.text[theme]}>{product.name}</Text>
         <Button
           onPress={() => removeProduct(product.id)}
           title="Remove"

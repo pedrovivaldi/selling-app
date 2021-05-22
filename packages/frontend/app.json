@@ -1,13 +1,17 @@
 {
   "expo": {
-    "name": "Multi-screen Starter",
-    "description": "react native multi screen application starter with expo",
-    "scheme": "expomultiscreenstarter",
-    "slug": "expomultiscreenstarter",
+    "name": "Selling App",
+    "description": "React Native selling app",
+    "scheme": "exposellingapp",
+    "slug": "exposellingapp",
     "privacy": "public",
     "version": "0.0.2",
-    "platforms": ["android", "ios", "web"],
-    "githubUrl": "https://github.com/calebnance/expo-multi-screen-starter",
+    "platforms": [
+      "android",
+      "ios",
+      "web"
+    ],
+    "githubUrl": "https://github.com/pedro-vivaldi/selling-app",
     "orientation": "portrait",
     "primaryColor": "#2a2a2a",
     "icon": "src/assets/icon.png",
@@ -19,7 +23,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["src/assets/**/*"],
+    "assetBundlePatterns": [
+      "src/assets/**/*"
+    ],
     "android": {
       "versionCode": 2
     },

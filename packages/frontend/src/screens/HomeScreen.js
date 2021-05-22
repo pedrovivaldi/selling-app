@@ -62,10 +62,10 @@ const HomeScreen = ({ navigation, screenProps }) => {
     product: {
       width: '50%',
       height: '35%',
-      padding: '10px'
+      padding: 10
     },
     image: {
-      height: '100px',
+      height: 100,
       resizeMode: 'stretch'
     }
   });
@@ -81,9 +81,10 @@ const HomeScreen = ({ navigation, screenProps }) => {
             uri: `${item.imageUrl}`
           }}
         />
-        <Text>{item.name}</Text>
+        <Text style={gStyle.text[theme]}>{item.name}</Text>
         {cartIds.includes(item.id) ? (
           <Button
+            style={gStyle.text[theme]}
             onPress={() => removeProduct(item.id)}
             title="Remove"
             color="#e42424"
