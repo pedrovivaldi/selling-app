@@ -1,44 +1,39 @@
-import type { Serverless } from 'serverless/aws';
+import { Serverless } from 'serverless/aws';
+import { counterFunctions } from './lambdas/counter';
 
 const serverlessConfiguration: Serverless = {
-  service: {
-    name: 'backend',
-    // app and org for use with dashboard.serverless.com
-    // app: your-app-name,
-    // org: your-org-name,
-  },
-  frameworkVersion: '1',
-  custom: {
-    webpack: {
-      webpackConfig: './webpack.config.js',
-      includeModules: true
-    }
-  },
-  // Add the serverless-webpack plugin
-  plugins: ['serverless-webpack'],
-  provider: {
-    name: 'aws',
-    runtime: 'nodejs12.x',
-    apiGateway: {
-      minimumCompressionSize: 1024,
+    service: {
+        name: 'backend',
     },
-    environment: {
-      AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
+    frameworkVersion: '1',
+    custom: {
+        'serverless-offline': {
+            httpPort: 3010,
+            lambdaPort: 3012,
+            apiKey: 'local',
+        },
+        webpack: {
+            webpackConfig: './webpack.config.js',
+            includeModules: true,
+        },
     },
-  },
-  functions: {
-    hello: {
-      handler: 'handler.hello',
-      events: [
-        {
-          http: {
-            method: 'get',
-            path: 'hello',
-          }
-        }
-      ]
-    }
-  }
-}
+    plugins: ['serverless-webpack', 'serverless-offline'],
+    provider: {
+        name: 'aws',
+        runtime: 'nodejs12.x',
+        region: 'us-east-1',
+        apiKeys: ["${opt:stage, 'development'}-backend-key"],
+        apiGateway: {
+            minimumCompressionSize: 1024,
+        },
+        environment: {
+            AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
+            STAGE: "${opt:stage, 'development'}",
+        },
+    },
+    functions: {
+        ...counterFunctions,
+    },
+};
 
 module.exports = serverlessConfiguration;
