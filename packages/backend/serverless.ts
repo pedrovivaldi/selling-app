@@ -1,5 +1,6 @@
 import { Serverless } from 'serverless/aws';
 import { counterFunctions } from './lambdas/counter';
+import { productsFunctions } from './lambdas/products';
 
 const serverlessConfiguration: Serverless = {
     service: {
@@ -7,6 +8,17 @@ const serverlessConfiguration: Serverless = {
     },
     frameworkVersion: '1',
     custom: {
+        dynamodb: {
+            development: {
+                tableName: 'dev_products',
+                arn:
+                    'arn:aws:dynamodb:us-east-1:002494347922:table/dev_products',
+            },
+            production: {
+                tableName: 'products',
+                arn: 'arn:aws:dynamodb:us-east-1:002494347922:table/products',
+            },
+        },
         'serverless-offline': {
             httpPort: 3010,
             lambdaPort: 3012,
@@ -29,10 +41,21 @@ const serverlessConfiguration: Serverless = {
         environment: {
             AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
             STAGE: "${opt:stage, 'development'}",
+            TABLE_NAME:
+                "${self:custom.dynamodb.${opt:stage, 'development'}.tableName}",
         },
+        iamRoleStatements: [
+            {
+                Effect: 'Allow',
+                Action: ['dynamodb:PutItem', 'dynamodb:Scan'],
+                Resource:
+                    "${self:custom.dynamodb.${opt:stage, 'development'}.arn}",
+            },
+        ],
     },
     functions: {
         ...counterFunctions,
+        ...productsFunctions,
     },
 };
 
