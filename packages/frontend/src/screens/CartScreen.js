@@ -36,7 +36,7 @@ const CartScreen = () => {
 
   const cartProducts = cart.map((product) => {
     return (
-      <View style={styles.cart}>
+      <View key={product.id} style={styles.cart}>
         <Image
           style={styles.image}
           source={{

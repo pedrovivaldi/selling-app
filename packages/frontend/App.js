@@ -12,6 +12,9 @@ import Stack from './src/navigation/Stack';
 
 const store = createStore(cartReducer);
 
+const NAMESPACE = 'selling-app';
+const KEY = 'selling-app-count';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -32,15 +35,23 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // get system preference
     const colorScheme = Appearance.getColorScheme();
 
-    // if light or dark
     if (colorScheme !== 'no-preference') {
       this.setState({
         theme: colorScheme
       });
     }
+
+    // Count access
+    fetch(
+      `https://dg2vohfa25.execute-api.us-east-1.amazonaws.com/development/count/${NAMESPACE}/${KEY}`,
+      {
+        method: 'POST'
+      }
+    )
+      .then((response) => response.json())
+      .catch((error) => console.error(error));
   }
 
   updateTheme(themeType) {

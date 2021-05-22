@@ -13,8 +13,10 @@ import { useTheme } from 'react-navigation';
 import { gStyle } from '../constants';
 import { addproduct, removeproduct } from '../actions/CartActions';
 import { useSelector, useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import NavigationCart from '../components/NavigationCart';
+import { LOCAL_STORAGE_KEY } from '../reducers/CartReducer';
 
 const HomeScreen = ({ navigation, screenProps }) => {
   const theme = useTheme();
@@ -28,6 +30,7 @@ const HomeScreen = ({ navigation, screenProps }) => {
   const removeProduct = (id) => dispatch(removeproduct(id));
 
   React.useEffect(() => {
+    // Get products
     fetch(
       'https://dg2vohfa25.execute-api.us-east-1.amazonaws.com/development/products'
     )
@@ -35,6 +38,17 @@ const HomeScreen = ({ navigation, screenProps }) => {
       .then((products) => setProducts(products))
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
+
+    // Get cart from local storage
+    AsyncStorage.getItem(LOCAL_STORAGE_KEY).then((value) => {
+      console.log(value);
+      if (value) {
+        const products = JSON.parse(value);
+        for (let product of products) {
+          addProduct(product);
+        }
+      }
+    });
   }, []);
 
   const styles = StyleSheet.create({
@@ -60,7 +74,7 @@ const HomeScreen = ({ navigation, screenProps }) => {
 
   const productsComponents = products.map((item) => {
     return (
-      <View style={styles.product}>
+      <View key={item.id} style={styles.product}>
         <Image
           style={styles.image}
           source={{
