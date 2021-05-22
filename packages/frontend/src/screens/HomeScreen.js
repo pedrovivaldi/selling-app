@@ -6,10 +6,13 @@ import {
   StyleSheet,
   Text,
   Image,
-  View
+  View,
+  Button
 } from 'react-native';
 import { useTheme } from 'react-navigation';
 import { gStyle } from '../constants';
+import { addproduct, removeproduct } from '../actions/CartActions';
+import { useSelector, useDispatch } from 'react-redux';
 
 import NavigationCart from '../components/NavigationCart';
 
@@ -18,6 +21,11 @@ const HomeScreen = ({ navigation, screenProps }) => {
 
   const [isLoading, setLoading] = React.useState(true);
   const [products, setProducts] = React.useState([]);
+
+  const cart = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const addProduct = (product) => dispatch(addproduct(product));
+  const removeProduct = (id) => dispatch(removeproduct(id));
 
   React.useEffect(() => {
     fetch(
@@ -48,6 +56,8 @@ const HomeScreen = ({ navigation, screenProps }) => {
     }
   });
 
+  const cartIds = cart.map((product) => product.id);
+
   const productsComponents = products.map((item) => {
     return (
       <View style={styles.product}>
@@ -58,6 +68,19 @@ const HomeScreen = ({ navigation, screenProps }) => {
           }}
         />
         <Text>{item.name}</Text>
+        {cartIds.includes(item.id) ? (
+          <Button
+            onPress={() => removeProduct(item.id)}
+            title="Remove"
+            color="#e42424"
+          />
+        ) : (
+          <Button
+            onPress={() => addProduct(item)}
+            title="Add"
+            color="#60c560"
+          />
+        )}
       </View>
     );
   });

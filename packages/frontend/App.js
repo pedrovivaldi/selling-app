@@ -4,9 +4,13 @@ import { ScreenOrientation } from 'expo';
 import AppLoading from 'expo-app-loading';
 import { Appearance } from 'react-native-appearance';
 import { device, func } from './src/constants';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import cartReducer from './src/reducers/CartReducer';
 
-// tab navigator
 import Stack from './src/navigation/Stack';
+
+const store = createStore(cartReducer);
 
 class App extends React.Component {
   constructor(props) {
@@ -60,16 +64,18 @@ class App extends React.Component {
     }
 
     return (
-      <React.Fragment>
-        <StatusBar barStyle={device.iOS ? iOSStatusType : 'light-content'} />
+      <Provider store={store}>
+        <React.Fragment>
+          <StatusBar barStyle={device.iOS ? iOSStatusType : 'light-content'} />
 
-        <Stack
-          screenProps={{
-            updateTheme: this.updateTheme
-          }}
-          theme={theme}
-        />
-      </React.Fragment>
+          <Stack
+            screenProps={{
+              updateTheme: this.updateTheme
+            }}
+            theme={theme}
+          />
+        </React.Fragment>
+      </Provider>
     );
   }
 }
