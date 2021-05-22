@@ -60,6 +60,9 @@ export const count: APIGatewayProxyHandler = async (event, _context) => {
         return {
             statusCode: 400,
             body: JSON.stringify({ errors }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
         };
     }
 
@@ -71,12 +74,18 @@ export const count: APIGatewayProxyHandler = async (event, _context) => {
             body: JSON.stringify({
                 message: `Error when counting for namespace ${namespace} and key ${key}`,
             }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
         };
     }
 
     return {
         statusCode: 200,
         body: JSON.stringify({ value }),
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        },
     };
 };
 
