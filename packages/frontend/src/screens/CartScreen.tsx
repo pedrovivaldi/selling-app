@@ -17,7 +17,7 @@ import NavigationBack from '../components/NavigationBack';
 const CartScreen = () => {
   const theme = useTheme();
 
-  const cart = useSelector((state) => state);
+  const cart: any = useSelector((state) => state);
   const dispatch = useDispatch();
   const removeProduct = (id) => dispatch(removeproduct(id));
 
@@ -54,7 +54,7 @@ const CartScreen = () => {
   });
   return (
     <ScrollView
-      contentContainerStyle={gStyle.contentContainer}
+      contentContainerStyle={{ alignItems: 'center' }}
       style={gStyle.container[theme]}
     >
       <View style={gStyle.spacer16} />

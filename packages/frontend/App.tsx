@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { StatusBar } from 'react-native';
-import { ScreenOrientation } from 'expo';
 import AppLoading from 'expo-app-loading';
 import { Appearance } from 'react-native-appearance';
 import { device, func } from './src/constants';
@@ -23,13 +22,6 @@ class App extends React.Component {
       isLoading: true,
       theme: 'light'
     };
-
-    // is iPad?
-    if (device.isPad) {
-      ScreenOrientation.allowAsync(
-        ScreenOrientation.Orientation.ALL_BUT_UPSIDE_DOWN
-      );
-    }
 
     this.updateTheme = this.updateTheme.bind(this);
   }
@@ -61,7 +53,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { isLoading, theme } = this.state;
+    const isLoading = this.state['isLoading'];
+    const theme = this.state['theme'];
+
     const iOSStatusType = theme === 'light' ? 'dark-content' : 'light-content';
 
     if (isLoading) {

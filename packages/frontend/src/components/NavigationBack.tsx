@@ -9,8 +9,6 @@ const NavigationBack = ({ navigation }) => (
   <TouchableOpacity
     accessible
     accessibilityLabel="go back"
-    accessibilityComponentType="button"
-    accessibilityTraits="button"
     activeOpacity={gStyle.activeOpacity}
     onPress={() => navigation.goBack(navigation.state.key)}
     style={{ paddingHorizontal: 16, paddingVertical: 8 }}

@@ -10,7 +10,7 @@ const { height, width } = windowInfo;
 const aspectRatio = height / width;
 
 // is iPad
-const { isPad } = Platform;
+const isPad = Platform['isPad'];
 
 // is iPhone with Notch?
 // iPhoneX, iPhoneXs, iPhoneXr, iPhoneXs Max, iPhone 11 & 12

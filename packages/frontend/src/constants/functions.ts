@@ -12,7 +12,7 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 // cache images
 // /////////////////////////////////////////////////////////////////////////////
 const cacheImages = (images) => {
-  return Object.values(images).map((image) => {
+  return Object.values(images).map((image: any) => {
     if (typeof image === 'string') {
       return Image.prefetch(image);
     }
@@ -23,14 +23,14 @@ const cacheImages = (images) => {
 
 // preload async
 // /////////////////////////////////////////////////////////////////////////////
-const loadAssetsAsync = async () => {
+async function loadAssetsAsync(): Promise<void> {
   // preload assets
   const fontAssets = cacheFonts(preloadFonts);
   const imageAssets = cacheImages(preloadImages);
 
   // promise load all
-  return Promise.all([...fontAssets, ...imageAssets]);
-};
+  Promise.all([...fontAssets, ...imageAssets]);
+}
 
 export default {
   cacheFonts,

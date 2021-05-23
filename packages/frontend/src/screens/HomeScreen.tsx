@@ -24,7 +24,7 @@ const HomeScreen = ({ navigation, screenProps }) => {
   const [isLoading, setLoading] = React.useState(true);
   const [products, setProducts] = React.useState([]);
 
-  const cart = useSelector((state) => state);
+  const cart: any = useSelector((state) => state);
   const dispatch = useDispatch();
   const addProduct = (product) => dispatch(addproduct(product));
   const removeProduct = (id) => dispatch(removeproduct(id));
@@ -41,7 +41,6 @@ const HomeScreen = ({ navigation, screenProps }) => {
 
     // Get cart from local storage
     AsyncStorage.getItem(LOCAL_STORAGE_KEY).then((value) => {
-      console.log(value);
       if (value) {
         const products = JSON.parse(value);
         for (let product of products) {
@@ -84,6 +83,7 @@ const HomeScreen = ({ navigation, screenProps }) => {
         <Text style={gStyle.text[theme]}>{item.name}</Text>
         {cartIds.includes(item.id) ? (
           <Button
+            // @ts-ignore Component type does not have style
             style={gStyle.text[theme]}
             onPress={() => removeProduct(item.id)}
             title="Remove"
@@ -102,7 +102,7 @@ const HomeScreen = ({ navigation, screenProps }) => {
 
   return (
     <View style={gStyle.container[theme]}>
-      <ScrollView contentContainerStyle={gStyle.contentContainer}>
+      <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
         <View style={gStyle.spacer16} />
 
         {isLoading ? (
