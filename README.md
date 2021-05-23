@@ -40,4 +40,5 @@ Observations:
 ## Live Demos
 - Web: http://selling-app.s3-website-us-east-1.amazonaws.com/
 - iOS: Check https://expo.io/@pedro-vivaldi/projects or scan the QR Code below. Ask me for the invitation to test the demo :)
+
 ![Alt Text](https://selling-app-assets.s3.amazonaws.com/expo+qr.png)
