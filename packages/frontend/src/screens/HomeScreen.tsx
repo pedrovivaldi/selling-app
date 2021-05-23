@@ -32,7 +32,7 @@ const HomeScreen = ({ navigation, screenProps }) => {
   React.useEffect(() => {
     // Get products
     fetch(
-      'https://dg2vohfa25.execute-api.us-east-1.amazonaws.com/development/products'
+      'https://ttuqiqz600.execute-api.us-east-1.amazonaws.com/production/products'
     )
       .then((response) => response.json())
       .then((products) => setProducts(products))

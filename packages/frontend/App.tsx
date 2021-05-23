@@ -37,7 +37,7 @@ class App extends React.Component {
 
     // Count access
     fetch(
-      `https://dg2vohfa25.execute-api.us-east-1.amazonaws.com/development/count/${NAMESPACE}/${KEY}`,
+      `https://ttuqiqz600.execute-api.us-east-1.amazonaws.com/production/count/${NAMESPACE}/${KEY}`,
       {
         method: 'POST'
       }
